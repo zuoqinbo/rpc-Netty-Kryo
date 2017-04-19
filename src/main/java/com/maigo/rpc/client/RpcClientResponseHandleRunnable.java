@@ -9,6 +9,11 @@ import com.maigo.rpc.future.RpcFuture;
 public class RpcClientResponseHandleRunnable implements Runnable
 {
 	private ConcurrentMap<Integer, RpcFuture> invokeIdRpcFutureMap;
+
+	/**
+	 * 多线程从响应结果的阻塞队列中去取数据
+	 *
+	 */
 	private BlockingQueue<RpcResponse> responseQueue;
 	
 	public RpcClientResponseHandleRunnable(
@@ -19,6 +24,7 @@ public class RpcClientResponseHandleRunnable implements Runnable
 		this.responseQueue = responseQueue;
 	}
 
+	@Override
 	public void run() 
 	{
 		while(true)
@@ -26,7 +32,7 @@ public class RpcClientResponseHandleRunnable implements Runnable
 			try 
 			{
 				RpcResponse rpcResponse = responseQueue.take();
-				
+				//取出一个响应结果
 				int id = rpcResponse.getId();
 				RpcFuture rpcFuture = invokeIdRpcFutureMap.remove(id);
 				

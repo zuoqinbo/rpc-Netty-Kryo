@@ -12,6 +12,10 @@ import com.maigo.rpc.future.RpcFuture;
 
 public class RpcClientResponseHandler 
 {
+
+	/**
+	 * 保证多线程线程安全
+	 */
 	private ConcurrentMap<Integer, RpcFuture> invokeIdRpcFutureMap = new ConcurrentHashMap<Integer, RpcFuture>();
 	
 	private ExecutorService threadPool;
@@ -25,7 +29,12 @@ public class RpcClientResponseHandler
 			threadPool.execute(new RpcClientResponseHandleRunnable(invokeIdRpcFutureMap, responseQueue));
 		}
 	}
-	
+
+	/**
+	 * 将异步任务放到Map容器中，然后通过阻塞队列去消费其中的异步响应，这样客户端也算是多线程了，达到客户端处理并发效率高
+	 * @param id
+	 * @param rpcFuture
+	 */
 	public void register(int id, RpcFuture rpcFuture)
 	{
 		invokeIdRpcFutureMap.put(id, rpcFuture);

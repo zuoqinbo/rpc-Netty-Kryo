@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Netty-Kryo-RPC.iml" filepath="$PROJECT_DIR$/Netty-Kryo-RPC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Maigo-RPC.iml" filepath="$PROJECT_DIR$/Maigo-RPC.iml" />
     </modules>
   </component>
 </project>

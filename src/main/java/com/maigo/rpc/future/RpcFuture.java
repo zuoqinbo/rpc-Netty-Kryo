@@ -6,6 +6,19 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 import com.maigo.rpc.exception.RpcTimeoutException;
 
+
+/**
+ * 一个异步任务的
+ * 包括状态、监听、计数器
+ *
+ * 我们能够看到使用countDownLatch 这个来自己实现异步任务的作用
+ * 在get的时候，先阻塞
+ * 我们能够看到setResult、setThrowable
+ * 直到有结果的时候才继续进行
+ *
+ * 这里要注意的是超时的情况
+ * 采用默认get还是 get(Long timeout)
+ */
 public class RpcFuture 
 {
 	public final static int STATE_AWAIT = 0;
@@ -42,7 +55,7 @@ public class RpcFuture
 		awaitSuccess = countDownLatch.await(timeout, TimeUnit.MILLISECONDS);
 		
 		if(!awaitSuccess)
-			throw new RpcTimeoutException();
+			throw new RpcTimeoutException();//超时异常
 		
 		if(state == STATE_SUCCESS)
 			return result;

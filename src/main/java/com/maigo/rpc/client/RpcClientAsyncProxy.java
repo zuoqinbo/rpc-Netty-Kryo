@@ -8,6 +8,11 @@ import com.maigo.rpc.exception.RpcMethodNotFoundException;
 import com.maigo.rpc.future.RpcFuture;
 import com.maigo.rpc.utils.InfoPrinter;
 
+
+/**
+ * 客户端异步代理
+ *
+ */
 public class RpcClientAsyncProxy 
 {
 	private RpcClient rpcClient;

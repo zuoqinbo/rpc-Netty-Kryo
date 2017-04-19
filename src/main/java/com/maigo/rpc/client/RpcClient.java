@@ -21,6 +21,12 @@ import com.maigo.rpc.netty.NettyKryoDecoder;
 import com.maigo.rpc.netty.NettyKryoEncoder;
 import com.maigo.rpc.utils.InfoPrinter;
 
+
+/**
+ * 该类实现了InvocationHandler 标识该类是代理类
+ *
+ *
+ */
 public class RpcClient implements InvocationHandler
 {
 	private long timeoutMills = 0;
@@ -80,7 +86,7 @@ public class RpcClient implements InvocationHandler
 		
 		return rpcFuture;
 	}
-	
+
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable 
 	{	
@@ -103,6 +109,10 @@ public class RpcClient implements InvocationHandler
 		return result;
 	}
 
+
+	/**
+	 * 客户端NIO 服务器启动
+	 */
 	public void connect()
 	{
 		bootstrap = new Bootstrap();
@@ -115,11 +125,12 @@ public class RpcClient implements InvocationHandler
                     	 @Override
                     	 protected void initChannel(Channel ch) throws Exception 
                     	 {
-                    		ch.pipeline().addLast(new NettyKryoDecoder(), 
+                    		ch.pipeline().addLast(new NettyKryoDecoder(), //这些对象都是 是实现了ChannelHandler
                     				new RpcClientDispatchHandler(rpcClientResponseHandler, rpcClientChannelInactiveListener), 
                     				new NettyKryoEncoder());
                     	 }
-					 });
+					 });//handler 可以是可以配置多个 上面只是其中一个
+
             bootstrap.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             bootstrap.option(ChannelOption.TCP_NODELAY, true);
             bootstrap.option(ChannelOption.SO_KEEPALIVE, true);

@@ -17,7 +17,8 @@ public class KryoSerializer
 	public static void serialize(Object object, ByteBuf byteBuf) 
 	{
 		Kryo kryo = KryoHolder.get();
-		int startIdx = byteBuf.writerIndex();
+		int startIdx = byteBuf.writerIndex();//这里就是有了byteBuf 偏移量的既视感了
+
         ByteBufOutputStream byteOutputStream = new ByteBufOutputStream(byteBuf);
         try 
         {
