@@ -1,5 +1,7 @@
 package com.maigo.rpc.test;
 
+import com.maigo.rpc.utils.InfoPrinter;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,7 +67,8 @@ public class JUnitTestInterfaceImpl implements JUnitTestInterface
 	}
 
 	public int methodForMultiThread(int threadId) 
-	{		
+	{
+		InfoPrinter.println("线程执行ID:"+threadId);
 		return threadId;
 	}
 

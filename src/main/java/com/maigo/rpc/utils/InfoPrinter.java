@@ -7,6 +7,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 
+
+/**
+ *
+ * 打印日志 也是一个生产消费者模式
+ *
+ */
 public class InfoPrinter 
 {
 	/**
@@ -20,7 +26,7 @@ public class InfoPrinter
     static
     {
         //set up the thread for print
-        threadPool = Executors.newSingleThreadExecutor();
+        threadPool = Executors.newSingleThreadExecutor();//单线程
         threadPool.execute(new Runnable()
         {
             public void run()

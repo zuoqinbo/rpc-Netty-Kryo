@@ -69,6 +69,7 @@ public class JUnitMultiThreadSafeTest
 		@Override
 		public void run() 
 		{
+			//20个线程  每一个线程进行1000次调用
 			for(int i=0; i<INVOKES; i++)
 			{
 				int result = jUnitTestInterface.methodForMultiThread(threadId);

@@ -43,8 +43,16 @@ public class RpcServer
 	
 	public void start()
 	{
+
+		/**
+		 * Boss与Worker线程模型
+		 */
 		EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+		/**
+		 *
+		 */
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+
         try 
         {
             ServerBootstrap bootstrap = new ServerBootstrap();
