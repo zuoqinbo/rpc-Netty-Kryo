@@ -1,11 +1,11 @@
-package com.maigo.rpc.test;
+package com.maigo.rpc.inter;
 
 import com.maigo.rpc.utils.InfoPrinter;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class JUnitTestInterfaceImpl implements JUnitTestInterface
+public class UserServiceImpl implements UserService
 {
 	public String methodWithoutArg() 
 	{
@@ -17,10 +17,10 @@ public class JUnitTestInterfaceImpl implements JUnitTestInterface
 		return arg1 + " = " + arg2;
 	}
 
-	public JUnitTestCustomObject methodWithCustomObject(
-			JUnitTestCustomObject customObject) 
+	public CustomObject methodWithCustomObject(
+			CustomObject customObject) 
 	{
-		JUnitTestCustomObject object = new JUnitTestCustomObject(customObject.getString() + " after", 
+		CustomObject object = new CustomObject(customObject.getString() + " after", 
 				customObject.getI() + 47);
 		return object;
 	}
@@ -32,7 +32,7 @@ public class JUnitTestInterfaceImpl implements JUnitTestInterface
 
 	public void methodThrowException()
 	{
-		throw new JUnitTestCustomException();
+		throw new CustomException();
 	}
 
 	public void methodTimeOut() 

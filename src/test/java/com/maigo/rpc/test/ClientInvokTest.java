@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.maigo.rpc.inter.CustomObject;
+import com.maigo.rpc.inter.UserService;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,12 +19,12 @@ import com.maigo.rpc.exception.RpcTimeoutException;
 import com.maigo.rpc.future.RpcFuture;
 import com.maigo.rpc.future.RpcFutureListener;
 
-public class JUnitFunctionTest 
+public class ClientInvokTest
 {
 	/**
 	 * use for sync-mode test
 	 */
-	public static JUnitTestInterface jUnitTestInterface;
+	public static UserService userService;
 	
 	/**
 	 * use for async-mode test
@@ -49,14 +51,14 @@ public class JUnitFunctionTest
 			}
 		};
 		
-		jUnitTestInterface = RpcClientProxyBuilder.create(JUnitTestInterface.class)
+		userService = RpcClientProxyBuilder.create(UserService.class)
 												.timeout(2000)
 												.threads(4)
 												.hook(hook)
 												.connect("127.0.0.1", 3721)
 												.build();
 		
-		rpcClientAsyncProxy = RpcClientProxyBuilder.create(JUnitTestInterface.class)
+		rpcClientAsyncProxy = RpcClientProxyBuilder.create(UserService.class)
 												.timeout(2000)
 												.threads(4)
 												.hook(hook)
@@ -67,23 +69,23 @@ public class JUnitFunctionTest
 	@Test
 	public void testMethodWithoutArg() 
 	{
-		assertEquals("this is return from methodWithoutArg()", 
-				jUnitTestInterface.methodWithoutArg());
+		assertEquals("this is return from methodWithoutArg()",
+                userService.methodWithoutArg());
 	}
 	
 	@Test
 	public void testMethodWithArgs() 
 	{
-		assertEquals("age = 23", jUnitTestInterface.methodWithArgs("age", 23));
-		assertEquals("born = 1992", jUnitTestInterface.methodWithArgs("born", 1992));
+		assertEquals("age = 23", userService.methodWithArgs("age", 23));
+		assertEquals("born = 1992", userService.methodWithArgs("born", 1992));
 	}
 	
 	@Test
 	public void methodWithCustomObject() 
 	{
-		JUnitTestCustomObject beforeCustomObject = new JUnitTestCustomObject("before", 3);
-		JUnitTestCustomObject afterCustomObject = 
-				jUnitTestInterface.methodWithCustomObject(beforeCustomObject);
+		CustomObject beforeCustomObject = new CustomObject("before", 3);
+		CustomObject afterCustomObject =
+                userService.methodWithCustomObject(beforeCustomObject);
 		assertEquals("before after", afterCustomObject.getString());
 		assertEquals(50, afterCustomObject.getI());
 	}
@@ -91,7 +93,7 @@ public class JUnitFunctionTest
 	@Test
 	public void testMethodReturnList() 
 	{
-		List<String> list = jUnitTestInterface.methodReturnList("hello", "world");
+		List<String> list = userService.methodReturnList("hello", "world");
 		assertEquals("hello", list.get(0));
 		assertEquals("world", list.get(1));
 	}
@@ -99,19 +101,19 @@ public class JUnitFunctionTest
 	@Test(expected=JUnitTestCustomException.class)
 	public void testMethodThrowException() 
 	{
-		jUnitTestInterface.methodThrowException();	
+        userService.methodThrowException();
 	}
 	
 	@Test(expected=RpcTimeoutException.class)
 	public void testMethodTimeOut() 
 	{
-		jUnitTestInterface.methodTimeOut();	
+		userService.methodTimeOut();
 	}
 	
 	@Test
 	public void testMethodReturnVoid() 
 	{
-		jUnitTestInterface.methodReturnVoid();
+		userService.methodReturnVoid();
 	}
 	
 	@Test
@@ -119,7 +121,7 @@ public class JUnitFunctionTest
 	{
 		integerBeforeHook = 100;
 		integerAfterHook = 500;
-		jUnitTestInterface.methodWithoutArg();
+		userService.methodWithoutArg();
 		assertEquals(101, integerBeforeHook);
 		assertEquals(501, integerAfterHook);
 	}

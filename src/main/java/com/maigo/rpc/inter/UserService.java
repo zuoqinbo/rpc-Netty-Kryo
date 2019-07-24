@@ -1,12 +1,12 @@
-package com.maigo.rpc.test;
+package com.maigo.rpc.inter;
 
 import java.util.List;
 
-public interface JUnitTestInterface 
+public interface UserService
 {
 	public String methodWithoutArg();
 	public String methodWithArgs(String arg1, int arg2);
-	public JUnitTestCustomObject methodWithCustomObject(JUnitTestCustomObject customObject);
+	public CustomObject methodWithCustomObject(CustomObject customObject);
 	public List<String> methodReturnList(String arg1, String arg2);
 	public void methodThrowException();
 	public void methodTimeOut();

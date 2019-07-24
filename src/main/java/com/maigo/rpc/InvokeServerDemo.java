@@ -1,15 +1,12 @@
-package com.maigo.rpc.test;
-
-import static org.junit.Assert.*;
+package com.maigo.rpc;
 
 import com.maigo.rpc.inter.UserService;
 import com.maigo.rpc.inter.UserServiceImpl;
-import org.junit.Test;
-
 import com.maigo.rpc.server.RpcServer;
 import com.maigo.rpc.server.RpcServerBuilder;
+import org.junit.Test;
 
-public class JUnitServerTest 
+public class InvokeServerDemo
 {
 	@Test
 	public void testServerStart() 
@@ -26,6 +23,6 @@ public class JUnitServerTest
 	
 	public static void main(String[] args) 
 	{
-		new JUnitServerTest().testServerStart();
+		new InvokeServerDemo().testServerStart();
 	}
 }
