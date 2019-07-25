@@ -24,7 +24,7 @@ import com.maigo.rpc.utils.InfoPrinter;
 
 /**
  * 该类实现了InvocationHandler 标识该类是代理类
- *
+ * InvocationHandler JDK 动态代理
  *
  */
 public class RpcClient implements InvocationHandler
@@ -87,6 +87,8 @@ public class RpcClient implements InvocationHandler
 		return rpcFuture;
 	}
 
+
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable 
 	{	

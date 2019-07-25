@@ -18,7 +18,7 @@ import static org.junit.Assert.fail;
  * @author ZuoQinbo
  * @date 2019/7/24
  */
-public class InvokeClient {
+public class InvokeClientDemo {
 
     public static void main(String[] args) {
 
@@ -27,6 +27,7 @@ public class InvokeClient {
                 .threads(4)
                 .connect("127.0.0.1", 3721)
                 .buildAsyncProxy();
+        //异步调用
         RpcFuture rpcFuture = rpcClientAsyncProxy.call("methodWithoutArg");
 
 //        try
@@ -42,6 +43,7 @@ public class InvokeClient {
 //        }
 //
 //        fail("failed to catch JUnitTestCustomException.");
+        //动态代理直接调用
         UserService userService = RpcClientProxyBuilder.create(UserService.class)
                 .timeout(2000)
                 .threads(4)
